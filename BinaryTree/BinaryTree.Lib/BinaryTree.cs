@@ -12,7 +12,7 @@ namespace BinaryTreeEx.Lib
 
         public BinaryTree(int v)
         {
-            _root = new TreeNode(v, 0, null);
+            _root = new TreeNode(v);
         }
 
         public void Insert(int v)
@@ -51,13 +51,10 @@ namespace BinaryTreeEx.Lib
     internal class TreeNode
     { 
         private int _value;
-        private TreeNode _leftChild, _rightChild, _parent;
-        private int _layer;
-        public TreeNode(int v, int layer, TreeNode parent)
+        private TreeNode _leftChild, _rightChild;
+        public TreeNode(int v)
         {
             _value = v;
-            _layer = layer;
-            _parent = parent;
             _leftChild = null;
             _rightChild = null;
         }
@@ -71,14 +68,14 @@ namespace BinaryTreeEx.Lib
                 if(_leftChild != null)
                     _leftChild.Insert(v);
                 else
-                    _leftChild = new TreeNode(v, _layer + 1, this);
+                    _leftChild = new TreeNode(v);
             }   
             else
             {
                 if(_rightChild != null)
                     _rightChild.Insert(v);
                 else
-                    _rightChild = new TreeNode(v, _layer + 1, this);
+                    _rightChild = new TreeNode(v);
             }
         }
 
