@@ -35,7 +35,6 @@ namespace BinaryTreeEx.Tests
             tree1.InsertRange(new List<int> { 4, 6, 3, 18, 1, 25, 12});
             Assert.AreEqual(74, tree1.Sum);
         }
-
         
     }
 }

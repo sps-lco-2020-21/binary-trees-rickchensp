@@ -9,7 +9,7 @@ namespace BinaryTreeEx.Lib
     public class BinaryTree
     {
         private TreeNode _root;
-        private int _depth;
+
         public BinaryTree(int v)
         {
             _root = new TreeNode(v, 0, null);
@@ -32,31 +32,23 @@ namespace BinaryTreeEx.Lib
         {
             return _root.IsPreSent(v);
         }
+        public int Depth { get { return _root.Depth; } }
+        public int Count { get { return _root.Count; } }
+        public int Sum { get { return _root.Value + _root.Sum; } }
 
-        public int Depth
+        public void InOrderOutput()
         {
-            get
-            {
-                return 0;
-            }
-        }
-
-        public int Sum
-        {
-            get
-            {    
-                return _root.Value + _root.Sum;
-            }
+            _root.InOrderTraversal();
         }
 
         public override string ToString()
         {
-            return _root.ToString();
+            return "Count = " + Convert.ToString(Count);
         }
     }
 
 
-    public class TreeNode
+    internal class TreeNode
     { 
         private int _value;
         private TreeNode _leftChild, _rightChild, _parent;
@@ -100,35 +92,47 @@ namespace BinaryTreeEx.Lib
             if (v == _value)
                 return true;
             if (v >= _value)
-            {
-                if(_rightChild != null)
-                    return _rightChild.IsPreSent(v);
-                return false;
-
-            }
+                return (_rightChild == null) ? false : _rightChild.IsPreSent(v);
             else
-            {
-                if (_leftChild != null)
-                    return _leftChild.IsPreSent(v);
-                return false;
-            }
+                return (_leftChild == null) ? false : _leftChild.IsPreSent(v);
+        }
 
+        internal void InOrderTraversal()
+        {
+            if (_leftChild != null)
+                _leftChild.InOrderTraversal();
+            Console.WriteLine(this);
+            if (_rightChild != null)
+                _rightChild.InOrderTraversal();       
         }
 
         internal int Sum
         {
             get
             {
-                if(_leftChild == null)
-                {
-                    if (_rightChild == null)
-                        return 0;
-                    return _rightChild._value + _rightChild.Sum;
-                }
-                else if(_rightChild == null)
-                    return _leftChild._value + _leftChild.Sum;
-                else
-                    return _leftChild._value + _rightChild._value + _leftChild.Sum + _rightChild.Sum;
+                return ((_leftChild == null) ? 0 : _leftChild._value + _leftChild.Sum)
+                    + ((_rightChild == null) ? 0 : _rightChild._value + _rightChild.Sum);
+            }
+        }
+
+        internal int Count
+        {
+            get
+            {
+                return 1 + ((_leftChild == null) ? 0 : _leftChild.Count)
+                    + ((_rightChild == null) ? 0 : _rightChild.Count);        
+            }
+        }
+
+        internal int Depth
+        {
+            get
+            {
+                if(_leftChild == null & _rightChild == null)
+                    return 1;
+                int leftDepth = (_leftChild == null) ? 0 : _leftChild.Depth;
+                int rightDepth = (_rightChild == null) ? 0 : _rightChild.Depth;
+                return 1 + Math.Max(leftDepth, rightDepth);
             }
         }
     }
