@@ -19,6 +19,7 @@ namespace BinaryTreeEx.App
             tree2.InsertRange(new List<int> { 4, 6, 3, 18, 1, 25, 12, 2, 9 , 75, 64, 24, 10 , 108, 209});
             tree2.InOrderOutput();
             int depth2 = tree2.Depth;
+            int lowestCommonAncestor = tree2.LCommonAncestor(4, 18);
             Console.ReadKey();
         }
     }
